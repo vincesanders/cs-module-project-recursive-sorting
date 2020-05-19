@@ -35,7 +35,9 @@ def merge(arrA, arrB):
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort(arr):
     # Your code here
-    if len(arr) > 2:
+    if len(arr) <= 1:
+        return arr
+    elif len(arr) > 2:
         #split the array
         dividing_index = (len(arr) - 1) // 2
         arr1 = arr[0:dividing_index]
@@ -43,8 +45,6 @@ def merge_sort(arr):
         sorted_pairs1 = merge_sort(arr1)
         sorted_pairs2 = merge_sort(arr2)
         return merge(sorted_pairs1, sorted_pairs2)
-    elif len(arr) is 1:
-        return arr
     else:
         if arr[0] < arr[1]:
             return arr
