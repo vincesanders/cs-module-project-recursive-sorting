@@ -57,8 +57,40 @@ def merge_sort(arr):
 # implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
     # Your code here
-
-
+    if start > mid:
+        return arr
+    elif end >= len(arr):
+        return arr
+    if arr[start] <= arr[end]:
+        start += 1
+        return merge_in_place(arr, start, mid, end)
+    else:
+        arr[start], arr[end] = arr[end], arr[start]
+        end += 1
+        return merge_in_place(arr, start, mid, end)
+    # if index >= len(arr):
+    #     return arr
+    # else:
+    #     if start > len(arrA) - 1:
+    #         arr[index] = arrB[end]
+    #         index += 1
+    #         end += 1
+    #         merge_in_place(start, end, index)
+    #     elif end > len(arrB) - 1:
+    #         arr[index] = arrA[start]
+    #         index += 1
+    #         start += 1
+    #         merge_in_place(start, end, index)
+    #     elif arrA[start] <= arrB[end]:
+    #         arr[index] = arrA[start]
+    #         index += 1
+    #         start += 1
+    #         merge_in_place(start, end, index)
+    #     else:
+    #         arr[index] = arrB[end]
+    #         index += 1
+    #         end += 1
+    #         merge_in_place(start, end, index)
     return arr
 
 
@@ -77,32 +109,61 @@ def timsort(arr):
     return arr
 
 def partition(data):
-        pivot = data[0]
-        left = []
-        right = []
-        for x in data[1:]:
-            if x <= pivot:
-                left.append(x)
-            else:
-                right.append(x)
-        return left, pivot, right
+    pivot = data[0]
+    left = []
+    right = []
+    for x in data[1:]:
+        if x <= pivot:
+            left.append(x)
+        else:
+            right.append(x)
+    return left, pivot, right
 
 def quicksort(arr): # O(nlogn) - best time complexity for general purpose sorting
     #find pivot - midpoint, first or last
-    if len(arr) is 0:
+    if len(arr) <= 1:
         return arr
 
     left, pivot, right = partition(arr)
 
     return quicksort(left) + [pivot] + quicksort(right)
 
-arr1 = [1,3,5,7,9]
-arr2 = [2,4,6,8]
+def partition_in_place(data, start, end):
+    pivot = data[start]
+    i = start + 1
+    j = start + 1
 
-merged_array = merge(arr1, arr2)
-print(merged_array)
+    while j <= end:
+        if data[j] <= pivot:
+            data[j], data[i] = data[i], data[j]
+            i += 1
+        j += 1
+    data[start], data[i - 1] = data[i - 1], data[start]
+    return i - 1
 
-arr3 = [5, 7, 3, 9, 1]
-arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
+def quicksort_in_place(arr, start=0, end=None):
+    if end is None:
+        end = len(arr) - 1
+    if start >= end:
+        return
+    #find pivot - midpoint, first or last
 
-print(merge_sort(arr4))
+    index = partition_in_place(arr, start, end)
+
+    quicksort_in_place(arr, start, index - 1) # left of pivot
+    quicksort_in_place(arr, index + 1, end) # right of pivot
+
+# arr1 = [1,3,5,7,9]
+# arr2 = [2,4,6,8]
+
+# merged_array = merge(arr1, arr2)
+# print(merged_array)
+
+# arr3 = [5, 7, 3, 9, 1]
+# arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
+# quicksort_in_place(arr4)
+# print(arr4)
+
+arr5 = [1,3,5,7,9,2,4,6,8]
+merge_in_place(arr5, 0, 4, 5)
+print(arr5)
