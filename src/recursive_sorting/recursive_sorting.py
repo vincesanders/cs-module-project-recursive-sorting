@@ -76,9 +76,25 @@ def timsort(arr):
 
     return arr
 
+def partition(data):
+        pivot = data[0]
+        left = []
+        right = []
+        for x in data[1:]:
+            if x <= pivot:
+                left.append(x)
+            else:
+                right.append(x)
+        return left, pivot, right
+
 def quicksort(arr): # O(nlogn) - best time complexity for general purpose sorting
     #find pivot - midpoint, first or last
-    pass
+    if len(arr) is 0:
+        return arr
+
+    left, pivot, right = partition(arr)
+
+    return quicksort(left) + [pivot] + quicksort(right)
 
 arr1 = [1,3,5,7,9]
 arr2 = [2,4,6,8]
