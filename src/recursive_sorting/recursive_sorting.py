@@ -65,11 +65,9 @@ def merge_in_place(arr, start, mid, end, right_start=None):
             merge_in_place(arr, start, mid, end, right_start)
         else: 
             value = arr[right_start]
-            index = right_start
             # shift all elements from start to right_start right 
-            while (index != start): 
-                arr[index] = arr[index - 1]
-                index -= 1
+            for i in reversed(range(start, right_start + 1)): # iterating backward through range
+                arr[i] = arr[i - 1]
             # insert arr[right_start]'s value to its proper place in the array
             arr[start] = value
             # Everything increments except end
@@ -153,9 +151,9 @@ def quicksort_in_place(arr, start=0, end=None):
 # # quicksort_in_place(arr4)
 # # print(arr4)
 
-# arr5 = [1,3,5,7,9,2,4,6,8]
-# print(merge_in_place(arr5, 0, 4, 8))
-# print(arr5)
+arr5 = [1,3,5,7,9,2,4,6,8]
+print(merge_in_place(arr5, 0, 4, 8))
+print(arr5)
 
 # merge_sort_in_place(arr4, 0, len(arr4) - 1)
 # print(arr4)
