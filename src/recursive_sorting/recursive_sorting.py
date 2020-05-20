@@ -59,23 +59,20 @@ def merge_in_place(arr, start, mid, end, right_start=None):
     # Your code here
     if right_start is None:
         right_start = mid + 1 
-    # Two pointers to maintain start 
-    # of both arrays to merge 
     if start <= mid and right_start <= end: 
-        # If element 1 is in right place 
         if (arr[start] <= arr[right_start]): 
             start += 1
             merge_in_place(arr, start, mid, end, right_start)
         else: 
             value = arr[right_start]
             index = right_start
-            # Shift all the elements between element 1 
-            # element 2, right by 1. 
+            # shift all elements from start to right_start right 
             while (index != start): 
                 arr[index] = arr[index - 1]
                 index -= 1
+            # insert arr[right_start]'s value to its proper place in the array
             arr[start] = value
-            # Update all the pointers 
+            # Everything increments except end
             start += 1
             mid += 1
             right_start += 1
