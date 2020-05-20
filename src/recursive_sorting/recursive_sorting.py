@@ -55,50 +55,41 @@ def merge_sort(arr):
 
 
 # implement an in-place merge sort algorithm
-def merge_in_place(arr, start, mid, end):
+def merge_in_place(arr, start, mid, end, right_start=None):
     # Your code here
-    if start > mid:
-        return arr
-    elif end >= len(arr):
-        return arr
-    if arr[start] <= arr[end]:
-        start += 1
-        return merge_in_place(arr, start, mid, end)
-    else:
-        arr[start], arr[end] = arr[end], arr[start]
-        end += 1
-        return merge_in_place(arr, start, mid, end)
-    # if index >= len(arr):
-    #     return arr
-    # else:
-    #     if start > len(arrA) - 1:
-    #         arr[index] = arrB[end]
-    #         index += 1
-    #         end += 1
-    #         merge_in_place(start, end, index)
-    #     elif end > len(arrB) - 1:
-    #         arr[index] = arrA[start]
-    #         index += 1
-    #         start += 1
-    #         merge_in_place(start, end, index)
-    #     elif arrA[start] <= arrB[end]:
-    #         arr[index] = arrA[start]
-    #         index += 1
-    #         start += 1
-    #         merge_in_place(start, end, index)
-    #     else:
-    #         arr[index] = arrB[end]
-    #         index += 1
-    #         end += 1
-    #         merge_in_place(start, end, index)
-    return arr
+    if right_start is None:
+        right_start = mid + 1 
+    # Two pointers to maintain start 
+    # of both arrays to merge 
+    if start <= mid and right_start <= end: 
+        # If element 1 is in right place 
+        if (arr[start] <= arr[right_start]): 
+            start += 1
+            merge_in_place(arr, start, mid, end, right_start)
+        else: 
+            value = arr[right_start]
+            index = right_start
+            # Shift all the elements between element 1 
+            # element 2, right by 1. 
+            while (index != start): 
+                arr[index] = arr[index - 1]
+                index -= 1
+            arr[start] = value
+            # Update all the pointers 
+            start += 1
+            mid += 1
+            right_start += 1
+            merge_in_place(arr, start, mid, end, right_start)
+
 
 
 def merge_sort_in_place(arr, l, r):
     # Your code here
-
-
-    return arr
+    if l < r:
+        mid = (l + r - 1) // 2
+        merge_sort_in_place(arr, l, mid)
+        merge_sort_in_place(arr, mid + 1, r)
+        merge_in_place(arr, l, mid, r)
 
 
 # STRETCH: implement the Timsort function below
@@ -160,10 +151,13 @@ def quicksort_in_place(arr, start=0, end=None):
 # print(merged_array)
 
 # arr3 = [5, 7, 3, 9, 1]
-# arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
+arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
 # quicksort_in_place(arr4)
 # print(arr4)
 
 arr5 = [1,3,5,7,9,2,4,6,8]
-merge_in_place(arr5, 0, 4, 5)
+print(merge_in_place(arr5, 0, 4, 8))
 print(arr5)
+
+merge_sort_in_place(arr4, 0, len(arr4) - 1)
+print(arr4)
