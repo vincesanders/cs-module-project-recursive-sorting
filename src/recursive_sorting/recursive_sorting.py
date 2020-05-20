@@ -90,6 +90,7 @@ def merge_sort_in_place(arr, l, r):
         merge_sort_in_place(arr, l, mid)
         merge_sort_in_place(arr, mid + 1, r)
         merge_in_place(arr, l, mid, r)
+    return arr
 
 
 # STRETCH: implement the Timsort function below
@@ -151,13 +152,13 @@ def quicksort_in_place(arr, start=0, end=None):
 # print(merged_array)
 
 # arr3 = [5, 7, 3, 9, 1]
-arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
-# quicksort_in_place(arr4)
+# arr4 = [6, 4, 8, 2, 16, 10, 14, 12]
+# # quicksort_in_place(arr4)
+# # print(arr4)
+
+# arr5 = [1,3,5,7,9,2,4,6,8]
+# print(merge_in_place(arr5, 0, 4, 8))
+# print(arr5)
+
+# merge_sort_in_place(arr4, 0, len(arr4) - 1)
 # print(arr4)
-
-arr5 = [1,3,5,7,9,2,4,6,8]
-print(merge_in_place(arr5, 0, 4, 8))
-print(arr5)
-
-merge_sort_in_place(arr4, 0, len(arr4) - 1)
-print(arr4)
